@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce6586b7-dc7e-45ba-963e-373cbb28279b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="Empty Dataset1" uuid="727c065a-0b62-4e13-9ae2-7ec50fa5884f"/>
+	<subDataset name="Dataset1" uuid="ff231b88-75aa-4a10-a32c-c6d758c8d0a3">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="name" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="Parameter1" class="java.lang.String"/>
+	<parameter name="Parameter2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="last" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="150" y="24" width="270" height="30" uuid="12806f31-245a-48a3-a141-44ad95add457"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Demo Export PDF (ตัวอย่าง)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="6" width="270" height="30" uuid="314c8733-90cf-4951-87e6-7bec97b378e1"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Parameter 1: " + $P{Parameter1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="44" width="270" height="30" uuid="59355684-ad00-4499-af86-59b6cb82ec8a"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Parameter 2: " +$P{Parameter2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="144" y="30" width="139" height="20" uuid="2e408ccd-03bc-43bf-83da-da110459db86"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.75" lineStyle="Solid"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="30" width="118" height="20" uuid="f4c635db-e28c-4ee6-8f6f-d7fefc1c5e7d"/>
+				<box leftPadding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Last]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="144" y="0" width="139" height="19" uuid="cb935c1f-3347-4391-b31d-4dccaa4b41f4"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="0" width="118" height="19" uuid="880af2e3-b677-445a-b5e1-1494cd6df8bd"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{last}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
