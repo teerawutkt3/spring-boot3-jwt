@@ -35,18 +35,17 @@ public class SecurityConfig {
     }
 
     public String[] WHITELIST_PATH = new String[]{
-            "/",
-
             "/api/permission/initial",
             "/public/**",
             "/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
 
-            "/monitoring**",
             "/monitoring/**",
             "/actuator",
             "/actuator/**",
+            "/favicon.ico",
+            "/"
     };
 
     @Bean
@@ -56,10 +55,12 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(WHITELIST_PATH).permitAll()
                 .anyRequest().authenticated()
-                .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
 
     @SuppressWarnings("deprecation")
     @Bean

@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  service:
+    image: app-api
+    container_name: app-api
+#    deploy:
+#      replicas: 1
+#      resources:
+#        limits:
+#          cpus: "1"
+#          memory: 1536M
+#        reservations:
+#          cpus: "0.25"
+#          memory: 256M
+    build:
+      context: ./
+      dockerfile: Dockerfile
+#    volumes:
+#      - /home/app/storage/logs:/home/hrms/logs/
+#      - /home/app/storage/upload:/home/hrms/upload
+    ports:
+      - "4444:8080"
+    networks:
+      - loki
+networks:
+  loki:

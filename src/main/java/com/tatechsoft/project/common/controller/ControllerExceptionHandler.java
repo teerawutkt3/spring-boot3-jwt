@@ -58,7 +58,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = OtherException.class)
     public ResponseEntity<CommonErrorMessage> otherException(OtherException e) {
-        log.error("error otherException: {}", e);
+        log.error("error otherException: {}", e.getMessage());
         CommonErrorMessage message = new CommonErrorMessage();
         message.setCode(AppConstant.ErrorCode.OTHER_EXCEPTION);
         message.setMessage(e.getMessage());
@@ -68,7 +68,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<CommonErrorMessage> exception(Exception e) {
-        log.error("error exception: {}", e);
+        log.error("error exception: {}", e.getMessage());
         CommonErrorMessage message = new CommonErrorMessage();
         message.setCode(AppConstant.ErrorCode.OTHER_EXCEPTION);
         message.setMessage(e.getMessage());

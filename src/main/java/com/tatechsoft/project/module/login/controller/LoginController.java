@@ -29,12 +29,15 @@ public class LoginController {
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginReq loginReq) {
         try {
+            log.info("loginReq: {}", loginReq.toString());
             return ResponseEntity.ok(loginService.login(loginReq));
 
         } catch (BadCredentialsException e) {
+            log.error("error login BadCredentialsException class: {} message: {}", e.getClass(), e.getMessage());
             ErrorRes errorResponse = new ErrorRes(HttpStatus.BAD_REQUEST, "Invalid username or password");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         } catch (Exception e) {
+            log.error("error login Exception class: {} message: {}", e.getClass(), e.getMessage());
             ErrorRes errorResponse = new ErrorRes(HttpStatus.BAD_REQUEST, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
@@ -50,7 +53,7 @@ public class LoginController {
             return ResponseEntity.ok("register success");
 
         } catch (Exception e) {
-            log.info("error exception: {}", e.getMessage());
+            log.info("error exception class: {} message: {}", e.getClass(), e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
