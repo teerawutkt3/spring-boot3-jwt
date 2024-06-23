@@ -82,7 +82,6 @@ public class PermissionConstant {
             {"PROFILE_BENEFIT", CAN_APPROVE_PROFILE_BENEFIT, "อนุมัต", "ร้องขอสวัสดิการ"},
             {"PROFILE_BENEFIT", CAN_REJECT_PROFILE_BENEFIT, "ลบ", "ร้องขอสวัสดิการ"},
 
-
             {"LOGIN_HISTORY", CAN_GET_LOGIN_HISTORY, "แสดงข้อมูล", "ประวัติการเข้าสู่ระบบ"},
     };
 

@@ -17,8 +17,7 @@ public class HelloController {
 
     @GetMapping("/")
     public ModelAndView home() {
-        ModelAndView mav = new ModelAndView("home");
-        return mav;
+        return new ModelAndView("home");
     }
 
 }
