@@ -20,7 +20,8 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtAuthorizationFilter jwtAuthorizationFilter) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                          JwtAuthorizationFilter jwtAuthorizationFilter) {
         this.userDetailsService = customUserDetailsService;
         this.jwtAuthorizationFilter = jwtAuthorizationFilter;
 
@@ -60,7 +61,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 
     @SuppressWarnings("deprecation")
     @Bean

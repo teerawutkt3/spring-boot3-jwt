@@ -45,16 +45,10 @@ public class LoginController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody LoginReq req) {
-        try {
-            var user = new User();
-            user.setUsername(req.getUsername());
-            user.setPassword(req.getPassword());
-            userService.register(user);
-            return ResponseEntity.ok("register success");
-
-        } catch (Exception e) {
-            log.info("error exception class: {} message: {}", e.getClass(), e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        var user = new User();
+        user.setUsername(req.getUsername());
+        user.setPassword(req.getPassword());
+        userService.register(user);
+        return ResponseEntity.ok("register success");
     }
 }
