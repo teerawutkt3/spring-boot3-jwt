@@ -24,7 +24,6 @@ import com.tatechsoft.project.module.ums.model.UserProfileDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,14 +62,11 @@ public class PermissionService {
 
     @Autowired
     private JwtUtil jwtUtil;
-//
-//    @Autowired
-//    private ProfileRepo profileRepo;
 
     @Transactional
     public void initial() throws BadRequestException {
 
-        //  1. Create Role
+        // ==> 1. Create Role
         List<Role> roleList = new ArrayList<>();
         Role role = new Role();
         for (int i = 0; i < PermissionConstant.Roles.length; i++) {
@@ -79,7 +75,7 @@ public class PermissionService {
         }
         roleRepo.saveAll(roleList);
 
-        //  2. Create Privilege  ## note (if insert in the middle will new sort no)
+        // ==> 2. Create Privilege (note if insert in the middle will new sort no)
         List<Privilege> privilegeList = new ArrayList<>();
         Privilege privilege = new Privilege();
         for (int i = 0; i < PermissionConstant.Privileges.length; i++) {
@@ -88,7 +84,7 @@ public class PermissionService {
         }
         privilegeRepo.saveAll(privilegeList);
 
-        //  Create User => superadmin
+        // ==> 3. Create User => superadmin
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         var username = "superadmin";
         var password = "superadmin";
@@ -104,16 +100,18 @@ public class PermissionService {
 
         role = roleList.stream().filter(p -> PermissionConstant.SUPER_ADMIN.equals(p.getCode())).findFirst().get();
 
-        //  clear user roles
+        // ==> 4. clear user roles
         userRoleRepo.deleteByUser(user);
-        //  3. Map users, roles
+
+        // ==> 5. Map users, roles
         userRoleRepo.save(new UserRole(user, role));
 
-        //  clear role privileges
+        // ==> 6. clear role privileges
         rolePrivilegeRepo.deleteByRole(role);
-        //  4. Map roles, privileges
-        for (Privilege p : privilegeList) {
-            rolePrivilegeRepo.save(new RolePrivilege(role, p));
+
+        // ==> 7. Map roles, privileges
+        for (Privilege pvl : privilegeList) {
+            rolePrivilegeRepo.save(new RolePrivilege(role, pvl));
         }
 
     }

@@ -61,11 +61,11 @@ public class PermissionConstant {
             {"BENEFIT", CAN_EDIT_BENEFIT, "แก้ไข", "สวัสดิการ"},
             {"BENEFIT", CAN_DELETE_BENEFIT, "ลบ", "สวัสดิการ"},
 
-            {"STUDENT_GENERATION", CAN_ACCESS_MENU_S_GEN, "เข้าถึงเมนู", "รุ่นนักเรียก"},
-            {"STUDENT_GENERATION", CAN_GET_S_GEN, "แสดงข้อมูล", "รุ่นนักเรียก"},
-            {"STUDENT_GENERATION", CAN_CREATE_S_GEN, "สร้าง", "รุ่นนักเรียก"},
-            {"STUDENT_GENERATION", CAN_EDIT_S_GEN, "แก้ไข", "รุ่นนักเรียก"},
-            {"STUDENT_GENERATION", CAN_DELETE_S_GEN, "ลบ", "รุ่นนักเรียก"},
+            {"STUDENT_GENERATION", CAN_ACCESS_MENU_S_GEN, "เข้าถึงเมนู", "รุ่นนักเรียน"},
+            {"STUDENT_GENERATION", CAN_GET_S_GEN, "แสดงข้อมูล", "รุ่นนักเรียน"},
+            {"STUDENT_GENERATION", CAN_CREATE_S_GEN, "สร้าง", "รุ่นนักเรียน"},
+            {"STUDENT_GENERATION", CAN_EDIT_S_GEN, "แก้ไข", "รุ่นนักเรียน"},
+            {"STUDENT_GENERATION", CAN_DELETE_S_GEN, "ลบ", "รุ่นนักเรียน"},
 
             {"PROFILE", CAN_ACCESS_MENU_PROFILE, "เข้าถึงเมนู", "โปรไฟล์"},
             {"PROFILE", CAN_GET_PROFILE, "แสดงข้อมูล", "โปรไฟล์"},

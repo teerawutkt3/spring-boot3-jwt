@@ -34,3 +34,4 @@ build/
 .mvn
 logs
 .javamelody
+.DS_Store
