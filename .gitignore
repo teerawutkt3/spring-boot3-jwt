@@ -35,3 +35,4 @@ build/
 logs
 .javamelody
 .DS_Store
+src/main/java/com/tatechsoft/project/gensource/result

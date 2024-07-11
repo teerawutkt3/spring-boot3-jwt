@@ -20,7 +20,7 @@ class GenSource {
         System.out.println("=============================");
         System.out.println("Entity name is: " + entityName);  // Output user input
 
-        String releaseFolder = "./src/main/java/com/ooo/project/gensource/result/";
+        String releaseFolder = "./src/main/java/com/tatechsoft/project/gensource/result/";
         String dir = releaseFolder + entityName;
         String dirFrontend = releaseFolder;
 
@@ -32,14 +32,14 @@ class GenSource {
         File file = new File(dir + ".java");
 
         FileWriter writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.base.entity.BaseEntity;\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.entity.BaseEntity;\n" +
                 "import lombok.Getter;\n" +
                 "import lombok.Setter;\n" +
-                "import javax.persistence.AttributeOverride;\n" +
-                "import javax.persistence.Column;\n" +
-                "import javax.persistence.Entity;\n" +
-                "import javax.persistence.Table;\n\n" +
+                "import jakarta.persistence.AttributeOverride;\n" +
+                "import jakarta.persistence.Column;\n" +
+                "import jakarta.persistence.Entity;\n" +
+                "import jakarta.persistence.Table;\n\n" +
                 "@Entity\n" +
                 "@Table(name = \"T_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, entityName) + "\")\n" +
                 "@Getter\n" +
@@ -64,9 +64,9 @@ class GenSource {
         file = new File(dir + "Repo.java");
 
         writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.base.repository.CommonJpaCrudRepository;\n" +
-                "import com.ooo.project.gensource.result." + entityName + ";\n\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.repository.CommonJpaCrudRepository;\n" +
+                "import com.tatechsoft.project.gensource.result." + entityName + ";\n\n" +
                 "public interface " + entityName + "Repo extends CommonJpaCrudRepository<" + entityName + ", Long>, " + entityName + "RepoCustom {\n\n}");
         writer.close();
         //Create the file
@@ -79,12 +79,12 @@ class GenSource {
         file = new File(dir + "RepoCustom.java");
 
         writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.bean.DataTableBean;\n" +
-                "import com.ooo.project.gensource.result." + entityName + "Criteria;\n" +
-                "import com.ooo.project.gensource.result." + entityName + ";\n\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.model.DataTable;\n" +
+                "import com.tatechsoft.project.gensource.result." + entityName + "Criteria;\n" +
+                "import com.tatechsoft.project.gensource.result." + entityName + ";\n\n" +
                 "public interface " + entityName + "RepoCustom {\n" +
-                "    DataTableBean<" + entityName + "> search" + entityName + "(" + entityName + "Criteria criteria);\n" +
+                "    DataTable<" + entityName + "> search" + entityName + "(" + entityName + "Criteria criteria);\n" +
                 "}");
         writer.close();
         System.out.println("File RepositoryCustom is created!");
@@ -94,21 +94,21 @@ class GenSource {
 
         writer = new FileWriter(file);
         String subEntityName = entityName.substring(0, 1);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.bean.DataTableBean;\n" +
-                "import com.ooo.project.gensource.result." + entityName + "Criteria;\n" +
-                "import com.ooo.project.gensource.result." + entityName + ";\n" +
-                "import com.ooo.project.common.util.AppUtils;\n" +
-                "import com.ooo.project.common.util.CriteriaQueryUtils;\n" +
-                "import javax.persistence.EntityManager;\n" +
-                "import javax.persistence.PersistenceContext;\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.model.DataTable;\n" +
+                "import com.tatechsoft.project.gensource.result." + entityName + "Criteria;\n" +
+                "import com.tatechsoft.project.gensource.result." + entityName + ";\n" +
+                "import com.tatechsoft.project.common.utils.AppUtils;\n" +
+                "import com.tatechsoft.project.common.utils.CriteriaQueryUtils;\n" +
+                "import jakarta.persistence.EntityManager;\n" +
+                "import jakarta.persistence.PersistenceContext;\n" +
                 "import java.util.HashMap;\n" +
                 "import java.util.Map;\n\n" +
                 "public class " + entityName + "RepoImpl implements " + entityName + "RepoCustom {\n" +
                 "\n" +
                 "    @PersistenceContext\n" +
                 "    EntityManager em;\n\n" +
-                "\tpublic DataTableBean<" + entityName + "> search" + entityName + "(" + entityName + "Criteria criteria) {\n" +
+                "\tpublic DataTable<" + entityName + "> search" + entityName + "(" + entityName + "Criteria criteria) {\n" +
                 "        Map<String, Object> params = new HashMap<>();\n" +
                 "        StringBuilder jpql = new StringBuilder(\"SELECT " + subEntityName.toLowerCase(Locale.ROOT) + " FROM " + entityName + " " + subEntityName.toLowerCase(Locale.ROOT) + " WHERE 1=1 \");\n\n" +
                 "//        if (AppUtils.hasValue(criteria.getParam1())) {\n" +
@@ -133,13 +133,14 @@ class GenSource {
         file = new File(dir + "Service.java");
 
         writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import lombok.extern.log4j.Log4j2;\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
-                "import com.ooo.project.common.base.service.BaseService;\n" +
                 "import org.springframework.stereotype.Service;\n\n" +
-                "import javax.transaction.Transactional;\n\n" +
+                "import org.springframework.transaction.annotation.Transactional;\n\n" +
+                "@Log4j2\n" +
                 "@Service\n" +
-                "public class " + entityName + "Service extends BaseService {\n\n" +
+                "public class " + entityName + "Service {\n\n" +
                 "\t@Autowired\n" +
                 "\tprivate " + entityName + "Repo " + AppUtils.entityLowerCase(entityName) + "Repo;\n\n" +
                 "    @Transactional\n" +
@@ -147,7 +148,7 @@ class GenSource {
                 "        " + AppUtils.entityLowerCase(entityName) + "Repo.deleteById(id);\n" +
                 "//            " + AppUtils.entityLowerCase(entityName) + "Repo.deleteSoft(id);\n" +
                 "//            " + AppUtils.entityLowerCase(entityName) + "Repo.inActive(id);\n" +
-                "        logger().info(\"Method delete {} success\", id);\n\n" +
+                "        log.info(\"Method delete {} success\", id);\n\n" +
                 "    }\n" +
                 "}");
         writer.close();
@@ -157,14 +158,16 @@ class GenSource {
         file = new File(dir + "Controller.java");
 
         writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.base.controller.BaseController;\n" +
-                "import com.ooo.project.common.base.exception.DataNotFoundException;\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.controller.BaseController;\n" +
+                "import com.tatechsoft.project.common.exception.DataNotFoundException;\n" +
+                "import lombok.extern.log4j.Log4j2;\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
                 "import org.springframework.http.ResponseEntity;\n" +
                 "import org.springframework.web.bind.annotation.*;\n" +
-                "import javax.servlet.http.HttpServletRequest;\n\n" +
+                "import jakarta.servlet.http.HttpServletRequest;\n\n" +
                 "import java.util.Optional;\n\n" +
+                "@Log4j2\n" +
                 "@RestController\n" +
                 "@RequestMapping(\"/api/" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, entityName) + "\")\n" +
                 "public class " + entityName + "Controller extends BaseController {\n" +
@@ -188,14 +191,14 @@ class GenSource {
                 "    \tpublic ResponseEntity<?> save" + entityName + "(@RequestBody " + entityName + " " + AppUtils.entityLowerCase(entityName) + ", HttpServletRequest http) {\n" +
                 "        isPermission(\"PRIVILEGE_XXX\", http);\n" +
                 "        " + AppUtils.entityLowerCase(entityName) + " = " + AppUtils.entityLowerCase(entityName) + "Repo.save(" + AppUtils.entityLowerCase(entityName) + ");\n" +
-                "        logger().info(\"Method save " + entityName + " success\");\n" +
+                "        log.info(\"Method save " + entityName + " success\");\n" +
                 "        return ResponseEntity.ok(" + AppUtils.entityLowerCase(entityName) + ");\n" +
                 "    }" +
                 "\n\n\t@DeleteMapping(\"/delete-by-id/{id}\")\n" +
                 "    public ResponseEntity<?> delete" + entityName + "(@PathVariable long id, HttpServletRequest http) {\n" +
                 "        isPermission(\"PRIVILEGE_XXX\", http);\n" +
                 "        " + AppUtils.entityLowerCase(entityName) + "Service.delete(id);\n" +
-                "        logger().info(\"Method delete" + entityName + " {} success\", id);\n" +
+                "        log.info(\"Method delete" + entityName + " {} success\", id);\n" +
                 "        return ResponseEntity.ok(message(\"SYS_D1\"));\n" +
                 "    }" +
                 "\n}");
@@ -206,8 +209,8 @@ class GenSource {
         file = new File(dir + "Criteria.java");
 
         writer = new FileWriter(file);
-        writer.write("package com.ooo.project.gensource.result;\n\n" +
-                "import com.ooo.project.common.base.criteria.BaseCriteria;\n" +
+        writer.write("package com.tatechsoft.project.gensource.result;\n\n" +
+                "import com.tatechsoft.project.common.criteria.BaseCriteria;\n" +
                 "import lombok.Getter;\n" +
                 "import lombok.Setter;\n\n" +
                 "@Getter\n" +
@@ -442,7 +445,7 @@ class GenSource {
                 "  </div>\n" +
                 "</template>\n" +
                 "<script>\n" +
-                "// import " + entityName + "Service from \"~/service/" + entityName + "Service\";\n" +
+                "// import " + entityName + "Api from \"~/api/" + entityName + "Api\";\n" +
                 "import AppConstant from \"~/common/constants/AppConstant\";\n" +
                 "import AuthUtils from \"~/common/utils/AuthUtils\";\n" +
                 "\n" +
@@ -480,13 +483,13 @@ class GenSource {
                 "      this.readMode = false;\n" +
                 "    },\n" +
                 "    async getById(id) {\n" +
-                "      this.formData = await " + entityName + "Service.getById(id);\n" +
+                "      this.formData = await " + entityName + "Api.getById(id);\n" +
                 "    },\n" +
                 "    async submit() {\n" +
                 "      try {\n" +
                 "        await this.$bus.emit(\"confirm-modal\", {\n" +
                 "          cb: async () => {\n" +
-                "            // await " + entityName + "Service.save(this.formData);\n" +
+                "            // await " + entityName + "Api.save(this.formData);\n" +
                 "            this.$notify(AppConstant.NOTI_SUCCESS);\n" +
                 "            this.readMode = true;\n" +
                 "          },\n" +
@@ -499,9 +502,9 @@ class GenSource {
                 "};\n" +
                 "</script>\n");
         writer.close();
-        System.out.println("File Frontend Service for call API");
+        System.out.println("File Frontend Api for call API");
 
-        file = new File(dir + "Service.js");
+        file = new File(dir + "Api.js");
 
         writer = new FileWriter(file);
         writer.write("import AxiosService from \"@/common/service/axios-service\";\n" +
@@ -523,7 +526,7 @@ class GenSource {
                 "  },\n" +
                 "};\n");
         writer.close();
-        System.out.println("File Frontend Service for call API");
+        System.out.println("File Frontend Api for call API");
 
         System.out.println("Total file generation is 10");
         System.out.println("=============================");
