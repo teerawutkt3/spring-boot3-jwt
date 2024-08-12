@@ -14,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
-
 @Component
 public class JwtUtil {
     private final String secret_key = "t@tects0ft";
