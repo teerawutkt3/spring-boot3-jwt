@@ -30,12 +30,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/user")
 public class UserController extends BaseController {
-    @Autowired
-    private UserRepo userRepo;
 
-    @Autowired
-    private UserService userService;
+    private final UserRepo userRepo;
+    private final UserService userService;
 
+    public UserController(UserRepo userRepo, UserService userService) {
+        this.userRepo = userRepo;
+        this.userService = userService;
+    }
 
     @GetMapping("/profile")
     public ResponseEntity<?> profile() {
@@ -43,7 +45,7 @@ public class UserController extends BaseController {
             String username = UserLoginUtils.getUsername();
             var userProfileDto = userService.getUserProfile(username);
             userProfileDto.getUser().setPassword(null);
-            GetProfileRes response  = new GetProfileRes();
+            GetProfileRes response = new GetProfileRes();
             response.setUser(userProfileDto.getUser());
             return ResponseEntity.ok(response);
         } catch (Exception e) {

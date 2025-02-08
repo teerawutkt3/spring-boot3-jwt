@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class ProcessException extends RuntimeException {
 
-    private static final long serialVersionUID = -8239042342154004529L;
     private String messageEn;
     private String messageTh;
     private Object data;

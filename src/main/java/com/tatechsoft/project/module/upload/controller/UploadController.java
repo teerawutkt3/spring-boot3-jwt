@@ -24,11 +24,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UploadController extends BaseController {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private UploadFileService uploadFileService;
+    private final UploadFileService uploadFileService;
+
+    public UploadController(UploadFileService uploadFileService) {
+        this.uploadFileService = uploadFileService;
+    }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UploadFileDto> upload(@RequestParam("file") MultipartFile file,

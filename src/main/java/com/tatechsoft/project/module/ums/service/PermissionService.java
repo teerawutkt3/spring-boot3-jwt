@@ -38,30 +38,26 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class PermissionService {
+    
+    private final RolePrivilegeRepo rolePrivilegeRepo;
+    private final PrivilegeRepo privilegeRepo;
+    private final RoleRepo roleRepo;
+    private final UserRepo userRepo;
+    private final UserRoleRepo userRoleRepo;
+    private final UserPrivilegeRepo userPrivilegeRepo;
+    private final PermissionRepo permissionRepo;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private RolePrivilegeRepo rolePrivilegeRepo;
-
-    @Autowired
-    private PrivilegeRepo privilegeRepo;
-
-    @Autowired
-    private RoleRepo roleRepo;
-
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private UserRoleRepo userRoleRepo;
-
-    @Autowired
-    private UserPrivilegeRepo userPrivilegeRepo;
-
-    @Autowired
-    private PermissionRepo permissionRepo;
-
-    @Autowired
-    private JwtUtil jwtUtil;
+    public PermissionService(RolePrivilegeRepo rolePrivilegeRepo, PrivilegeRepo privilegeRepo, RoleRepo roleRepo, UserRepo userRepo, UserRoleRepo userRoleRepo, UserPrivilegeRepo userPrivilegeRepo, PermissionRepo permissionRepo, JwtUtil jwtUtil) {
+        this.rolePrivilegeRepo = rolePrivilegeRepo;
+        this.privilegeRepo = privilegeRepo;
+        this.roleRepo = roleRepo;
+        this.userRepo = userRepo;
+        this.userRoleRepo = userRoleRepo;
+        this.userPrivilegeRepo = userPrivilegeRepo;
+        this.permissionRepo = permissionRepo;
+        this.jwtUtil = jwtUtil;
+    }
 
     @Transactional
     public void initial() throws BadRequestException {

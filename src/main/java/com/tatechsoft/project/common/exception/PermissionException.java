@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class PermissionException extends RuntimeException {
 
-    private static final long serialVersionUID = 5601149194215346000L;
     private String messageEn;
     private String messageTh;
 
